@@ -1,0 +1,4536 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.teams": {
+      "name": "teams",
+      "schema": "",
+      "columns": {
+        "team_abbr": {
+          "name": "team_abbr",
+          "type": "varchar(10)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "team_name": {
+          "name": "team_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "team_id": {
+          "name": "team_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_nick": {
+          "name": "team_nick",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_conf": {
+          "name": "team_conf",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_division": {
+          "name": "team_division",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_color": {
+          "name": "team_color",
+          "type": "varchar(7)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_color2": {
+          "name": "team_color2",
+          "type": "varchar(7)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_color3": {
+          "name": "team_color3",
+          "type": "varchar(7)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_color4": {
+          "name": "team_color4",
+          "type": "varchar(7)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_logo_wikipedia": {
+          "name": "team_logo_wikipedia",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_logo_espn": {
+          "name": "team_logo_espn",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_wordmark": {
+          "name": "team_wordmark",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_conference_logo": {
+          "name": "team_conference_logo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_league_logo": {
+          "name": "team_league_logo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_logo_squared": {
+          "name": "team_logo_squared",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_teams_conference_division": {
+          "name": "idx_teams_conference_division",
+          "columns": [
+            {
+              "expression": "team_conf",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "team_division",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_teams_name_trgm": {
+          "name": "idx_teams_name_trgm",
+          "columns": [
+            {
+              "expression": "team_name",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "gin_trgm_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gin",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.players": {
+      "name": "players",
+      "schema": "",
+      "columns": {
+        "gsis_id": {
+          "name": "gsis_id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "esb_id": {
+          "name": "esb_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "birth_date": {
+          "name": "birth_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "college_name": {
+          "name": "college_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "jersey_number": {
+          "name": "jersey_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "height": {
+          "name": "height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "weight": {
+          "name": "weight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_abbr": {
+          "name": "team_abbr",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_team_id": {
+          "name": "current_team_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "entry_year": {
+          "name": "entry_year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rookie_year": {
+          "name": "rookie_year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "draft_club": {
+          "name": "draft_club",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "college_conference": {
+          "name": "college_conference",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status_short_description": {
+          "name": "status_short_description",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gsis_it_id": {
+          "name": "gsis_it_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "short_name": {
+          "name": "short_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "headshot": {
+          "name": "headshot",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "draft_number": {
+          "name": "draft_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "draftround": {
+          "name": "draftround",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_players_active": {
+          "name": "idx_players_active",
+          "columns": [
+            {
+              "expression": "status",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "where": "((status)::text = 'Active'::text)",
+          "with": {}
+        },
+        "idx_players_display_name_trgm": {
+          "name": "idx_players_display_name_trgm",
+          "columns": [
+            {
+              "expression": "display_name",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "gin_trgm_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gin",
+          "with": {}
+        },
+        "idx_players_name_collation": {
+          "name": "idx_players_name_collation",
+          "columns": [
+            {
+              "expression": "display_name",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_players_name_search": {
+          "name": "idx_players_name_search",
+          "columns": [
+            {
+              "expression": "lower((display_name)::text)",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "varchar_pattern_ops",
+              "isExpression": true
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_players_position": {
+          "name": "idx_players_position",
+          "columns": [
+            {
+              "expression": "position",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_players_team": {
+          "name": "idx_players_team",
+          "columns": [
+            {
+              "expression": "team_abbr",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "players_team_abbr_fkey": {
+          "name": "players_team_abbr_fkey",
+          "tableFrom": "players",
+          "tableTo": "teams",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "team_abbr"
+          ],
+          "columnsTo": [
+            "team_abbr"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.games": {
+      "name": "games",
+      "schema": "",
+      "columns": {
+        "game_id": {
+          "name": "game_id",
+          "type": "varchar(50)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "season": {
+          "name": "season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "game_type": {
+          "name": "game_type",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "week": {
+          "name": "week",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gameday": {
+          "name": "gameday",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weekday": {
+          "name": "weekday",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gametime": {
+          "name": "gametime",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "away_team": {
+          "name": "away_team",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "away_score": {
+          "name": "away_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_team": {
+          "name": "home_team",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "home_score": {
+          "name": "home_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location": {
+          "name": "location",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "result": {
+          "name": "result",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total": {
+          "name": "total",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "overtime": {
+          "name": "overtime",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gsis": {
+          "name": "gsis",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nfl_detail_id": {
+          "name": "nfl_detail_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pfr": {
+          "name": "pfr",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pff": {
+          "name": "pff",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "espn": {
+          "name": "espn",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ftn": {
+          "name": "ftn",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "away_rest": {
+          "name": "away_rest",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_rest": {
+          "name": "home_rest",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "away_moneyline": {
+          "name": "away_moneyline",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_moneyline": {
+          "name": "home_moneyline",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spread_line": {
+          "name": "spread_line",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "away_spread_odds": {
+          "name": "away_spread_odds",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_spread_odds": {
+          "name": "home_spread_odds",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_line": {
+          "name": "total_line",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "under_odds": {
+          "name": "under_odds",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "over_odds": {
+          "name": "over_odds",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "div_game": {
+          "name": "div_game",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "roof": {
+          "name": "roof",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "surface": {
+          "name": "surface",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "temp": {
+          "name": "temp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wind": {
+          "name": "wind",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "away_qb_id": {
+          "name": "away_qb_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_qb_id": {
+          "name": "home_qb_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "away_qb_name": {
+          "name": "away_qb_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_qb_name": {
+          "name": "home_qb_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "away_coach": {
+          "name": "away_coach",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_coach": {
+          "name": "home_coach",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stadium_id": {
+          "name": "stadium_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stadium": {
+          "name": "stadium",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_games_date": {
+          "name": "idx_games_date",
+          "columns": [
+            {
+              "expression": "gameday",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "date_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_games_game_type": {
+          "name": "idx_games_game_type",
+          "columns": [
+            {
+              "expression": "game_type",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_games_season_week": {
+          "name": "idx_games_season_week",
+          "columns": [
+            {
+              "expression": "season",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "week",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "game_type",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_games_teams": {
+          "name": "idx_games_teams",
+          "columns": [
+            {
+              "expression": "home_team",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "away_team",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "games_away_qb_id_fkey": {
+          "name": "games_away_qb_id_fkey",
+          "tableFrom": "games",
+          "tableTo": "players",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "away_qb_id"
+          ],
+          "columnsTo": [
+            "gsis_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "games_away_team_fkey": {
+          "name": "games_away_team_fkey",
+          "tableFrom": "games",
+          "tableTo": "teams",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "away_team"
+          ],
+          "columnsTo": [
+            "team_abbr"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "games_home_qb_id_fkey": {
+          "name": "games_home_qb_id_fkey",
+          "tableFrom": "games",
+          "tableTo": "players",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "home_qb_id"
+          ],
+          "columnsTo": [
+            "gsis_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "games_home_team_fkey": {
+          "name": "games_home_team_fkey",
+          "tableFrom": "games",
+          "tableTo": "teams",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "home_team"
+          ],
+          "columnsTo": [
+            "team_abbr"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.snap_counts": {
+      "name": "snap_counts",
+      "schema": "",
+      "columns": {
+        "gsis_id": {
+          "name": "gsis_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "game_id": {
+          "name": "game_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "season": {
+          "name": "season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "week": {
+          "name": "week",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "offense_snaps": {
+          "name": "offense_snaps",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "offense_pct": {
+          "name": "offense_pct",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_snap_counts_gsis_id": {
+          "name": "idx_snap_counts_gsis_id",
+          "columns": [
+            {
+              "expression": "gsis_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_snap_counts_gsis_id_season": {
+          "name": "idx_snap_counts_gsis_id_season",
+          "columns": [
+            {
+              "expression": "gsis_id",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "int4_ops",
+              "isExpression": false
+            },
+            {
+              "expression": "season",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "snap_counts_game_id_fkey": {
+          "name": "snap_counts_game_id_fkey",
+          "tableFrom": "snap_counts",
+          "tableTo": "games",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "game_id"
+          ],
+          "columnsTo": [
+            "game_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "snap_counts_gsis_id_fkey": {
+          "name": "snap_counts_gsis_id_fkey",
+          "tableFrom": "snap_counts",
+          "tableTo": "players",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "gsis_id"
+          ],
+          "columnsTo": [
+            "gsis_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "snap_counts_pkey": {
+          "name": "snap_counts_pkey",
+          "columns": [
+            "gsis_id",
+            "game_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {
+    "public.player_career_team": {
+      "name": "player_career_team",
+      "schema": "public",
+      "columns": {
+        "gsis_id": {
+          "name": "gsis_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team": {
+          "name": "team",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "isExisting": false,
+      "definition": "WITH player_team_games AS ( SELECT player_game_stats.player_id, player_game_stats.team, row_number() OVER (PARTITION BY player_game_stats.player_id ORDER BY (count(*)) DESC, (max(player_game_stats.season)) DESC, (max( CASE WHEN player_game_stats.season = (( SELECT max(games.season) AS max FROM games)) THEN player_game_stats.week ELSE 0 END)) DESC) AS team_rank FROM player_game_stats GROUP BY player_game_stats.player_id, player_game_stats.team ), ranked_teams AS ( SELECT player_team_games.player_id, player_team_games.team FROM player_team_games WHERE player_team_games.team_rank = 1 ) SELECT c.player_id AS gsis_id, CASE WHEN c.last_season < (( SELECT max(games.season) AS max FROM games)) THEN h.team ELSE p.team_abbr END AS team FROM player_career_stats c JOIN ranked_teams h ON c.player_id::text = h.player_id::text JOIN players p ON c.player_id::text = p.gsis_id::text WHERE c.season_type = 'REG'::text",
+      "materialized": false
+    },
+    "public.player_game_stats": {
+      "name": "player_game_stats",
+      "schema": "public",
+      "columns": {
+        "game_id": {
+          "name": "game_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season": {
+          "name": "season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "week": {
+          "name": "week",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_name": {
+          "name": "player_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team": {
+          "name": "team",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_away": {
+          "name": "home_away",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season_type": {
+          "name": "season_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opponent_team": {
+          "name": "opponent_team",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_plays": {
+          "name": "total_plays",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plays": {
+          "name": "plays",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_plays": {
+          "name": "qb_plays",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completions": {
+          "name": "completions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempts": {
+          "name": "attempts",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_tds": {
+          "name": "passing_tds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interceptions": {
+          "name": "interceptions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sacks": {
+          "name": "sacks",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards": {
+          "name": "passing_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_yards": {
+          "name": "sack_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_air_yards": {
+          "name": "passing_air_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_downs": {
+          "name": "passing_first_downs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe": {
+          "name": "cpoe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passes": {
+          "name": "passes",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_targets": {
+          "name": "qb_targets",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_air_yards": {
+          "name": "qb_air_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_epa": {
+          "name": "passing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_passes": {
+          "name": "successful_passes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_cpoe": {
+          "name": "total_cpoe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe_count": {
+          "name": "cpoe_count",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropbacks": {
+          "name": "dropbacks",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_epa": {
+          "name": "dropback_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_dropbacks": {
+          "name": "successful_dropbacks",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scrambles": {
+          "name": "scrambles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_epa": {
+          "name": "scramble_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_yards": {
+          "name": "scramble_yards",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_scrambles": {
+          "name": "successful_scrambles",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_downs": {
+          "name": "scramble_first_downs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries": {
+          "name": "carries",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_tds": {
+          "name": "rushing_tds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_yards": {
+          "name": "rushing_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_downs": {
+          "name": "rushing_first_downs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_epa": {
+          "name": "rushing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_rushes": {
+          "name": "successful_rushes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "targets": {
+          "name": "targets",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receptions": {
+          "name": "receptions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_tds": {
+          "name": "receiving_tds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards": {
+          "name": "receiving_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards_after_catch": {
+          "name": "receiving_yards_after_catch",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_downs": {
+          "name": "receiving_first_downs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_air_yards": {
+          "name": "receiving_air_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_epa": {
+          "name": "receiving_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_receptions": {
+          "name": "successful_receptions",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_passes": {
+          "name": "explosive_passes",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_runs": {
+          "name": "explosive_runs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_receptions": {
+          "name": "explosive_receptions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scrambles": {
+          "name": "explosive_scrambles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles": {
+          "name": "sack_fumbles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles_lost": {
+          "name": "sack_fumbles_lost",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles": {
+          "name": "rushing_fumbles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles_lost": {
+          "name": "rushing_fumbles_lost",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles": {
+          "name": "receiving_fumbles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles_lost": {
+          "name": "receiving_fumbles_lost",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_2pt_conversions": {
+          "name": "passing_2pt_conversions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_2pt_conversions": {
+          "name": "rushing_2pt_conversions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_2pt_conversions": {
+          "name": "receiving_2pt_conversions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "special_teams_tds": {
+          "name": "special_teams_tds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_game_targets": {
+          "name": "team_game_targets",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_game_air_yards": {
+          "name": "team_game_air_yards",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "touches": {
+          "name": "touches",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opportunities": {
+          "name": "opportunities",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_epa": {
+          "name": "total_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "isExisting": false,
+      "definition": "WITH playstats_agg AS ( SELECT ps_1.player_id, ps_1.game_id, ps_1.season, ps_1.week, ps_1.team, max(pl.\"position\"::text) AS \"position\", count(DISTINCT ps_1.play_id) AS total_plays, sum( CASE WHEN ps_1.is_comp THEN 1 ELSE 0 END) AS completions, sum( CASE WHEN ps_1.is_att THEN 1 ELSE 0 END) AS attempts, sum( CASE WHEN ps_1.is_pass_td THEN 1 ELSE 0 END) AS passing_tds, sum( CASE WHEN ps_1.is_int THEN 1 ELSE 0 END) AS interceptions, sum( CASE WHEN ps_1.is_sack THEN 1 ELSE 0 END) AS sacks, sum( CASE WHEN ps_1.is_sack_fumble THEN 1 ELSE 0 END) AS sack_fumbles, sum( CASE WHEN ps_1.is_sack_fumble_lost THEN 1 ELSE 0 END) AS sack_fumbles_lost, sum( CASE WHEN ps_1.is_pass_first_down THEN 1 ELSE 0 END) AS passing_first_downs, sum( CASE WHEN ps_1.is_pass_2pt THEN 1 ELSE 0 END) AS passing_2pt_conversions, sum( CASE WHEN ps_1.qb_target THEN 1 ELSE 0 END) AS qb_targets, sum( CASE WHEN ps_1.is_carry THEN 1 ELSE 0 END) AS carries, sum( CASE WHEN ps_1.is_rush_td THEN 1 ELSE 0 END) AS rushing_tds, sum( CASE WHEN ps_1.is_rush_fumble THEN 1 ELSE 0 END) AS rushing_fumbles, sum( CASE WHEN ps_1.is_rush_fumble_lost THEN 1 ELSE 0 END) AS rushing_fumbles_lost, sum( CASE WHEN ps_1.is_rush_first_down THEN 1 ELSE 0 END) AS rushing_first_downs, sum( CASE WHEN ps_1.is_rush_2pt THEN 1 ELSE 0 END) AS rushing_2pt_conversions, sum( CASE WHEN ps_1.is_target THEN 1 ELSE 0 END) AS targets, sum( CASE WHEN ps_1.is_rec THEN 1 ELSE 0 END) AS receptions, sum( CASE WHEN ps_1.is_rec_td THEN 1 ELSE 0 END) AS receiving_tds, sum( CASE WHEN ps_1.is_rec_fumble THEN 1 ELSE 0 END) AS receiving_fumbles, sum( CASE WHEN ps_1.is_rec_fumble_lost THEN 1 ELSE 0 END) AS receiving_fumbles_lost, sum( CASE WHEN ps_1.is_rec_first_down THEN 1 ELSE 0 END) AS receiving_first_downs, sum( CASE WHEN ps_1.is_rec_2pt THEN 1 ELSE 0 END) AS receiving_2pt_conversions, sum( CASE WHEN ps_1.is_special_td THEN 1 ELSE 0 END) AS special_teams_tds, sum(ps_1.pass_yards) AS passing_yards, sum(ps_1.sack_yards) AS sack_yards, sum(ps_1.air_yards) AS passing_air_yards, sum(ps_1.air_yards_complete) AS qb_air_yards, sum(ps_1.rush_yards) AS rushing_yards, sum(ps_1.rec_yards) AS receiving_yards, sum(ps_1.yac) AS receiving_yards_after_catch, sum( CASE WHEN ps_1.pass_yards >= 20 THEN 1 ELSE 0 END) AS explosive_passes, sum( CASE WHEN ps_1.rush_yards > 10 THEN 1 ELSE 0 END) AS explosive_runs, sum( CASE WHEN ps_1.rec_yards >= 20 THEN 1 ELSE 0 END) AS explosive_receptions, sum( CASE WHEN ps_1.rush_yards >= 20 THEN 1 ELSE 0 END) AS explosive_scrambles, sum( CASE WHEN ps_1.is_target THEN ps_1.team_play_air_yards ELSE 0 END) AS receiving_air_yards, max(ps_1.team_game_targets) AS team_game_targets, max(ps_1.team_game_air_yards) AS team_game_air_yards, max(ps_1.player_name::text) AS player_name, max(ps_1.season_type::text) AS season_type, max(NULLIF( CASE WHEN ps_1.team::text = ps_1.off::text THEN ps_1.def ELSE ps_1.off END::text, 'NaN'::text)) AS opponent_team FROM playstats ps_1 JOIN ( SELECT players.gsis_id, players.\"position\" FROM players WHERE players.\"position\"::text = ANY (ARRAY['QB'::character varying, 'RB'::character varying, 'WR'::character varying, 'TE'::character varying]::text[])) pl ON ps_1.player_id::text = pl.gsis_id::text WHERE ps_1.player_id::text <> 'TEAM'::text GROUP BY ps_1.player_id, ps_1.game_id, ps_1.season, ps_1.week, ps_1.team ), passing_stats AS ( SELECT p.season, p.week, p.game_id, p.passer_player_id AS player_id, sum(p.qb_epa) AS passing_epa, avg(NULLIF(p.cpoe, 'NaN'::double precision)) AS passing_cpoe, count(NULLIF(p.cpoe, 'NaN'::double precision)) AS cpoe_count, sum(NULLIF(p.cpoe, 'NaN'::double precision)) AS total_cpoe, sum(NULLIF(p.success::double precision, 'NaN'::double precision)) AS successful_passes, count(p.passer_player_id) AS passes FROM plays p WHERE (p.play_type::text = ANY (ARRAY['pass'::character varying, 'qb_spike'::character varying]::text[])) AND p.passer_player_id IS NOT NULL GROUP BY p.season, p.week, p.game_id, p.passer_player_id ), rushing_stats AS ( SELECT p.season, p.week, p.game_id, p.rusher_player_id AS player_id, sum(p.epa) AS rushing_epa, sum(NULLIF(p.success::double precision, 'NaN'::double precision)) AS successful_rushes FROM plays p WHERE (p.play_type::text = ANY (ARRAY['run'::character varying, 'qb_kneel'::character varying]::text[])) AND p.rusher_player_id IS NOT NULL GROUP BY p.season, p.week, p.game_id, p.rusher_player_id ), receiving_stats AS ( SELECT p.season, p.week, p.game_id, p.receiver_player_id AS player_id, sum(p.epa) AS receiving_epa, sum(NULLIF(p.success::double precision, 'NaN'::double precision)) AS successful_receptions FROM plays p WHERE p.receiver_player_id IS NOT NULL GROUP BY p.season, p.week, p.game_id, p.receiver_player_id ), dropback_stats AS ( SELECT p.season, p.week, p.game_id, CASE WHEN p.qb_scramble = 1 THEN p.rusher_player_id ELSE p.passer_player_id END AS player_id, count(*) AS dropbacks, sum(p.qb_epa) AS dropback_epa, sum(NULLIF(p.success::double precision, 'NaN'::double precision)) AS successful_dropbacks FROM plays p WHERE p.qb_dropback = 1 AND (p.qb_scramble = 1 AND p.rusher_player_id IS NOT NULL OR p.passer_player_id IS NOT NULL) GROUP BY p.season, p.week, p.game_id, ( CASE WHEN p.qb_scramble = 1 THEN p.rusher_player_id ELSE p.passer_player_id END) ), scramble_stats AS ( SELECT p.season, p.week, p.game_id, p.rusher_player_id AS player_id, count(*) AS scrambles, sum(p.qb_epa) AS scramble_epa, sum(p.rushing_yards) AS scramble_yards, sum(NULLIF(p.success::double precision, 'NaN'::double precision)) AS successful_scrambles, sum( CASE WHEN p.first_down_rush = 1 THEN 1 ELSE 0 END) AS scramble_first_downs FROM plays p WHERE p.qb_scramble = 1 AND p.rusher_player_id IS NOT NULL GROUP BY p.season, p.week, p.game_id, p.rusher_player_id ) SELECT pa.game_id, pa.season, pa.week, pa.player_id, pa.player_name, pa.team, CASE WHEN pa.team::text = g.home_team::text THEN 'home'::text ELSE 'away'::text END AS home_away, pa.season_type, pa.opponent_team, pa.\"position\", pa.total_plays, COALESCE(sc.offense_snaps, 0) AS plays, COALESCE(ps.passes, 0::bigint) + pa.carries AS qb_plays, pa.completions, pa.attempts, pa.passing_tds, pa.interceptions, pa.sacks, pa.passing_yards, pa.sack_yards, pa.passing_air_yards, pa.passing_first_downs, COALESCE(ps.passing_cpoe, 0::double precision) AS cpoe, COALESCE(ps.passes, 0::bigint) AS passes, pa.qb_targets, pa.qb_air_yards, COALESCE(ps.passing_epa, 0::double precision) AS passing_epa, COALESCE(ps.successful_passes, 0::double precision) AS successful_passes, COALESCE(ps.total_cpoe, 0::double precision) AS total_cpoe, COALESCE(ps.cpoe_count, 0::bigint) AS cpoe_count, COALESCE(ds.dropbacks, 0::bigint) AS dropbacks, COALESCE(ds.dropback_epa, 0::double precision) AS dropback_epa, COALESCE(ds.successful_dropbacks, 0::double precision) AS successful_dropbacks, COALESCE(ss.scrambles, 0::bigint) AS scrambles, COALESCE(ss.scramble_epa, 0::double precision) AS scramble_epa, COALESCE(ss.scramble_yards, 0::double precision) AS scramble_yards, COALESCE(ss.successful_scrambles, 0::double precision) AS successful_scrambles, COALESCE(ss.scramble_first_downs, 0::bigint) AS scramble_first_downs, pa.carries, pa.rushing_tds, pa.rushing_yards, pa.rushing_first_downs, COALESCE(rs.rushing_epa, 0::double precision) AS rushing_epa, COALESCE(rs.successful_rushes, 0::double precision) AS successful_rushes, pa.targets, pa.receptions, pa.receiving_tds, pa.receiving_yards, pa.receiving_yards_after_catch, pa.receiving_first_downs, pa.receiving_air_yards, COALESCE(recs.receiving_epa, 0::double precision) AS receiving_epa, COALESCE(recs.successful_receptions, 0::double precision) AS successful_receptions, pa.explosive_passes, pa.explosive_runs, pa.explosive_receptions, pa.explosive_scrambles, pa.sack_fumbles, pa.sack_fumbles_lost, pa.rushing_fumbles, pa.rushing_fumbles_lost, pa.receiving_fumbles, pa.receiving_fumbles_lost, pa.passing_2pt_conversions, pa.rushing_2pt_conversions, pa.receiving_2pt_conversions, pa.special_teams_tds, pa.team_game_targets, pa.team_game_air_yards, pa.carries + pa.receptions AS touches, pa.carries + pa.targets AS opportunities, COALESCE(ps.passing_epa, 0::double precision) + COALESCE(rs.rushing_epa, 0::double precision) + COALESCE(recs.receiving_epa, 0::double precision) AS total_epa FROM playstats_agg pa LEFT JOIN snap_counts sc ON pa.player_id::text = sc.gsis_id::text AND pa.game_id::text = sc.game_id::text LEFT JOIN passing_stats ps ON pa.player_id::text = ps.player_id::text AND pa.game_id::text = ps.game_id::text LEFT JOIN rushing_stats rs ON pa.player_id::text = rs.player_id::text AND pa.game_id::text = rs.game_id::text LEFT JOIN receiving_stats recs ON pa.player_id::text = recs.player_id::text AND pa.game_id::text = recs.game_id::text LEFT JOIN dropback_stats ds ON pa.player_id::text = ds.player_id::text AND pa.game_id::text = ds.game_id::text LEFT JOIN scramble_stats ss ON pa.player_id::text = ss.player_id::text AND pa.game_id::text = ss.game_id::text LEFT JOIN ( SELECT games.game_id, games.home_team, games.away_team FROM games) g ON pa.game_id::text = g.game_id::text",
+      "materialized": true
+    },
+    "public.player_game_stats_with_metrics": {
+      "name": "player_game_stats_with_metrics",
+      "schema": "public",
+      "columns": {
+        "game_id": {
+          "name": "game_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season": {
+          "name": "season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "week": {
+          "name": "week",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_id": {
+          "name": "player_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_name": {
+          "name": "player_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team": {
+          "name": "team",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "home_away": {
+          "name": "home_away",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season_type": {
+          "name": "season_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opponent_team": {
+          "name": "opponent_team",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_plays": {
+          "name": "total_plays",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plays": {
+          "name": "plays",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_plays": {
+          "name": "qb_plays",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completions": {
+          "name": "completions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempts": {
+          "name": "attempts",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_tds": {
+          "name": "passing_tds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interceptions": {
+          "name": "interceptions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sacks": {
+          "name": "sacks",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards": {
+          "name": "passing_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_yards": {
+          "name": "sack_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_air_yards": {
+          "name": "passing_air_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_downs": {
+          "name": "passing_first_downs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe": {
+          "name": "cpoe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passes": {
+          "name": "passes",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_targets": {
+          "name": "qb_targets",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_air_yards": {
+          "name": "qb_air_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_epa": {
+          "name": "passing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_passes": {
+          "name": "successful_passes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_cpoe": {
+          "name": "total_cpoe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe_count": {
+          "name": "cpoe_count",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropbacks": {
+          "name": "dropbacks",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_epa": {
+          "name": "dropback_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_dropbacks": {
+          "name": "successful_dropbacks",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scrambles": {
+          "name": "scrambles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_epa": {
+          "name": "scramble_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_yards": {
+          "name": "scramble_yards",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_scrambles": {
+          "name": "successful_scrambles",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_downs": {
+          "name": "scramble_first_downs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries": {
+          "name": "carries",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_tds": {
+          "name": "rushing_tds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_yards": {
+          "name": "rushing_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_downs": {
+          "name": "rushing_first_downs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_epa": {
+          "name": "rushing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_rushes": {
+          "name": "successful_rushes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "targets": {
+          "name": "targets",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receptions": {
+          "name": "receptions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_tds": {
+          "name": "receiving_tds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards": {
+          "name": "receiving_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards_after_catch": {
+          "name": "receiving_yards_after_catch",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_downs": {
+          "name": "receiving_first_downs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_air_yards": {
+          "name": "receiving_air_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_epa": {
+          "name": "receiving_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_receptions": {
+          "name": "successful_receptions",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_passes": {
+          "name": "explosive_passes",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_runs": {
+          "name": "explosive_runs",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_receptions": {
+          "name": "explosive_receptions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scrambles": {
+          "name": "explosive_scrambles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles": {
+          "name": "sack_fumbles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles_lost": {
+          "name": "sack_fumbles_lost",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles": {
+          "name": "rushing_fumbles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles_lost": {
+          "name": "rushing_fumbles_lost",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles": {
+          "name": "receiving_fumbles",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles_lost": {
+          "name": "receiving_fumbles_lost",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_2pt_conversions": {
+          "name": "passing_2pt_conversions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_2pt_conversions": {
+          "name": "rushing_2pt_conversions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_2pt_conversions": {
+          "name": "receiving_2pt_conversions",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "special_teams_tds": {
+          "name": "special_teams_tds",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_game_targets": {
+          "name": "team_game_targets",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_game_air_yards": {
+          "name": "team_game_air_yards",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "touches": {
+          "name": "touches",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opportunities": {
+          "name": "opportunities",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_epa": {
+          "name": "total_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completion_percentage": {
+          "name": "completion_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_attempt": {
+          "name": "yards_per_attempt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_rate": {
+          "name": "sack_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_rate": {
+          "name": "scramble_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_adot": {
+          "name": "qb_adot",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiver_adot": {
+          "name": "receiver_adot",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_carry": {
+          "name": "yards_per_carry",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "catch_rate": {
+          "name": "catch_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_reception": {
+          "name": "yards_per_reception",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pacr": {
+          "name": "pacr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "racr": {
+          "name": "racr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_share": {
+          "name": "target_share",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "air_yards_share": {
+          "name": "air_yards_share",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wopr": {
+          "name": "wopr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "success_rate": {
+          "name": "success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_success_rate": {
+          "name": "passing_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_success_rate": {
+          "name": "dropback_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_success_rate": {
+          "name": "scramble_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_success_rate": {
+          "name": "rushing_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_success_rate": {
+          "name": "target_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_dropback": {
+          "name": "epa_per_dropback",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_scramble": {
+          "name": "epa_per_scramble",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_play": {
+          "name": "epa_per_play",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_qb_play": {
+          "name": "epa_per_qb_play",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_pass": {
+          "name": "epa_per_pass",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_carry": {
+          "name": "epa_per_carry",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_target": {
+          "name": "epa_per_target",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_pass_rate": {
+          "name": "explosive_pass_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_run_rate": {
+          "name": "explosive_run_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_target_rate": {
+          "name": "explosive_target_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_catch_rate": {
+          "name": "explosive_catch_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scramble_rate": {
+          "name": "explosive_scramble_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_yards": {
+          "name": "total_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_touchdowns": {
+          "name": "total_touchdowns",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rush_td_percentage": {
+          "name": "rush_td_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_td_percentage": {
+          "name": "receiving_td_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_reception": {
+          "name": "epa_per_reception",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passer_rating": {
+          "name": "passer_rating",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_down_rate": {
+          "name": "passing_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_down_rate": {
+          "name": "rushing_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_down_rate": {
+          "name": "receiving_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_down_rate": {
+          "name": "scramble_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_target": {
+          "name": "yards_per_target",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "isExisting": false,
+      "definition": "SELECT game_id, season, week, player_id, player_name, team, home_away, season_type, opponent_team, \"position\", total_plays, plays, qb_plays, completions, attempts, passing_tds, interceptions, sacks, passing_yards, sack_yards, passing_air_yards, passing_first_downs, cpoe, passes, qb_targets, qb_air_yards, passing_epa, successful_passes, total_cpoe, cpoe_count, dropbacks, dropback_epa, successful_dropbacks, scrambles, scramble_epa, scramble_yards, successful_scrambles, scramble_first_downs, carries, rushing_tds, rushing_yards, rushing_first_downs, rushing_epa, successful_rushes, targets, receptions, receiving_tds, receiving_yards, receiving_yards_after_catch, receiving_first_downs, receiving_air_yards, receiving_epa, successful_receptions, explosive_passes, explosive_runs, explosive_receptions, explosive_scrambles, sack_fumbles, sack_fumbles_lost, rushing_fumbles, rushing_fumbles_lost, receiving_fumbles, receiving_fumbles_lost, passing_2pt_conversions, rushing_2pt_conversions, receiving_2pt_conversions, special_teams_tds, team_game_targets, team_game_air_yards, touches, opportunities, total_epa, CASE WHEN attempts > 0 THEN round(completions::numeric / attempts::numeric * 100::numeric, 1) ELSE NULL::numeric END AS completion_percentage, CASE WHEN attempts > 0 THEN round(passing_yards::numeric / attempts::numeric, 1) ELSE NULL::numeric END AS yards_per_attempt, CASE WHEN dropbacks > 0 THEN round(sacks::numeric / dropbacks::numeric * 100::numeric, 1) ELSE NULL::numeric END AS sack_rate, CASE WHEN dropbacks > 0 THEN round(scrambles::numeric / dropbacks::numeric * 100::numeric, 1) ELSE NULL::numeric END AS scramble_rate, CASE WHEN qb_targets > 0 THEN round(qb_air_yards::numeric / qb_targets::numeric, 1) ELSE NULL::numeric END AS qb_adot, CASE WHEN targets > 0 THEN round(receiving_air_yards::numeric / targets::numeric, 1) ELSE NULL::numeric END AS receiver_adot, CASE WHEN carries > 0 THEN round(rushing_yards::numeric / carries::numeric, 1) ELSE NULL::numeric END AS yards_per_carry, CASE WHEN targets > 0 THEN round(receptions::numeric / targets::numeric * 100::numeric, 1) ELSE NULL::numeric END AS catch_rate, CASE WHEN receptions > 0 THEN round(receiving_yards::numeric / receptions::numeric, 1) ELSE NULL::numeric END AS yards_per_reception, CASE WHEN passing_air_yards > 0 THEN round(passing_yards::numeric / passing_air_yards::numeric, 3) ELSE NULL::numeric END AS pacr, CASE WHEN receiving_air_yards > 0 THEN round(receiving_yards::numeric / receiving_air_yards::numeric, 3) ELSE NULL::numeric END AS racr, CASE WHEN team_game_targets > 0 THEN round(targets::numeric / team_game_targets::numeric, 3) ELSE NULL::numeric END AS target_share, CASE WHEN team_game_air_yards > 0 THEN round(receiving_air_yards::numeric / team_game_air_yards::numeric, 3) ELSE NULL::numeric END AS air_yards_share, CASE WHEN team_game_targets > 0 AND team_game_air_yards > 0 THEN round(1.5 * (targets::numeric / team_game_targets::numeric) + 0.7 * (receiving_air_yards::numeric / team_game_air_yards::numeric), 3) ELSE NULL::numeric END AS wopr, CASE WHEN qb_plays > 0 THEN round((successful_passes::numeric + successful_rushes::numeric) / qb_plays::numeric * 100::numeric, 1) ELSE NULL::numeric END AS success_rate, CASE WHEN passes > 0 THEN round(successful_passes::numeric / passes::numeric * 100::numeric, 1) ELSE NULL::numeric END AS passing_success_rate, CASE WHEN dropbacks > 0 THEN round(successful_dropbacks::numeric / dropbacks::numeric * 100::numeric, 1) ELSE NULL::numeric END AS dropback_success_rate, CASE WHEN scrambles > 0 THEN round(successful_scrambles::numeric / scrambles::numeric * 100::numeric, 1) ELSE NULL::numeric END AS scramble_success_rate, CASE WHEN carries > 0 THEN round(successful_rushes::numeric / carries::numeric * 100::numeric, 1) ELSE NULL::numeric END AS rushing_success_rate, CASE WHEN targets > 0 THEN round(successful_receptions::numeric / targets::numeric * 100::numeric, 1) ELSE NULL::numeric END AS target_success_rate, CASE WHEN dropbacks > 0 THEN round(dropback_epa::numeric / dropbacks::numeric, 2) ELSE NULL::numeric END AS epa_per_dropback, CASE WHEN scrambles > 0 THEN round(scramble_epa::numeric / scrambles::numeric, 2) ELSE NULL::numeric END AS epa_per_scramble, CASE WHEN plays > 0 THEN round((passing_epa + rushing_epa + receiving_epa)::numeric / plays::numeric, 2) ELSE NULL::numeric END AS epa_per_play, CASE WHEN qb_plays > 0 THEN round((passing_epa + rushing_epa)::numeric / qb_plays::numeric, 2) ELSE NULL::numeric END AS epa_per_qb_play, CASE WHEN passes > 0 THEN round(passing_epa::numeric / passes::numeric, 2) ELSE NULL::numeric END AS epa_per_pass, CASE WHEN carries > 0 THEN round(rushing_epa::numeric / carries::numeric, 2) ELSE NULL::numeric END AS epa_per_carry, CASE WHEN targets > 0 THEN round(receiving_epa::numeric / targets::numeric, 2) ELSE NULL::numeric END AS epa_per_target, CASE WHEN passes > 0 THEN round(explosive_passes::numeric / passes::numeric * 100::numeric, 1) ELSE NULL::numeric END AS explosive_pass_rate, CASE WHEN carries > 0 THEN round(explosive_runs::numeric / carries::numeric * 100::numeric, 1) ELSE NULL::numeric END AS explosive_run_rate, CASE WHEN targets > 0 THEN round(explosive_receptions::numeric / targets::numeric * 100::numeric, 1) ELSE NULL::numeric END AS explosive_target_rate, CASE WHEN receptions > 0 THEN round(explosive_receptions::numeric / receptions::numeric * 100::numeric, 1) ELSE NULL::numeric END AS explosive_catch_rate, CASE WHEN scrambles > 0 THEN round(explosive_scrambles::numeric / scrambles::numeric * 100::numeric, 1) ELSE NULL::numeric END AS explosive_scramble_rate, passing_yards + rushing_yards + receiving_yards AS total_yards, passing_tds + rushing_tds + receiving_tds AS total_touchdowns, CASE WHEN carries > 0 THEN round(rushing_tds::numeric / carries::numeric * 100::numeric, 1) ELSE NULL::numeric END AS rush_td_percentage, CASE WHEN targets > 0 THEN round(receiving_tds::numeric / targets::numeric * 100::numeric, 1) ELSE NULL::numeric END AS receiving_td_percentage, CASE WHEN receptions > 0 THEN round(receiving_epa::numeric / receptions::numeric, 2) ELSE NULL::numeric END AS epa_per_reception, CASE WHEN attempts > 0 THEN round(((completions::numeric / attempts::numeric * 100::numeric - 30::numeric) / 20::numeric + (passing_yards::numeric / attempts::numeric - 3::numeric) / 4::numeric + passing_tds::numeric / attempts::numeric * 20::numeric + 2.375 - interceptions::numeric / attempts::numeric * 25::numeric) / 6::numeric * 100::numeric, 1) ELSE NULL::numeric END AS passer_rating, CASE WHEN attempts > 0 THEN round(passing_first_downs::numeric / attempts::numeric * 100::numeric, 1) ELSE NULL::numeric END AS passing_first_down_rate, CASE WHEN carries > 0 THEN round(rushing_first_downs::numeric / carries::numeric * 100::numeric, 1) ELSE NULL::numeric END AS rushing_first_down_rate, CASE WHEN targets > 0 THEN round(receiving_first_downs::numeric / targets::numeric * 100::numeric, 1) ELSE NULL::numeric END AS receiving_first_down_rate, CASE WHEN scrambles > 0 THEN round(scramble_first_downs::numeric / scrambles::numeric * 100::numeric, 1) ELSE NULL::numeric END AS scramble_first_down_rate, CASE WHEN targets > 0 THEN round(passing_yards::numeric / targets::numeric, 1) ELSE NULL::numeric END AS yards_per_target FROM player_game_stats pgs",
+      "materialized": false
+    },
+    "public.player_relevance": {
+      "name": "player_relevance",
+      "schema": "public",
+      "columns": {
+        "player_id": {
+          "name": "player_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "composite_score": {
+          "name": "composite_score",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "normalized_composite_score": {
+          "name": "normalized_composite_score",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "isExisting": false,
+      "definition": "WITH recent_szn AS ( SELECT max(games.season) AS szn FROM games WHERE games.game_type::text = 'SB'::text ), career_stats AS ( SELECT player_season_stats_with_metrics.player_id, player_season_stats_with_metrics.\"position\", log(GREATEST(sum(player_season_stats_with_metrics.total_yards), 0::numeric) + 1.0) * 0.125 * CASE WHEN player_season_stats_with_metrics.\"position\" = 'QB'::text THEN 0.9 ELSE 1::numeric END AS career_l1, log(sum(player_season_stats_with_metrics.total_touchdowns) + 1.0) * 2.5 * CASE WHEN player_season_stats_with_metrics.\"position\" = 'QB'::text THEN 0.85 ELSE 1::numeric END AS career_l2, log(GREATEST(sum(player_season_stats_with_metrics.total_epa), 0::double precision) + 1.0::double precision) * 2.0::double precision AS career_l3, log(sum(player_season_stats_with_metrics.touches) + 1.0) * 1.5 AS career_l4 FROM player_season_stats_with_metrics WHERE player_season_stats_with_metrics.season < (( SELECT recent_szn.szn FROM recent_szn)) GROUP BY player_season_stats_with_metrics.player_id, player_season_stats_with_metrics.\"position\" ), recent_stats AS ( SELECT player_season_stats_with_metrics.player_id, player_season_stats_with_metrics.\"position\", log(GREATEST(sum(player_season_stats_with_metrics.total_yards), 0::numeric) + 1.0) * 0.75 * CASE WHEN player_season_stats_with_metrics.\"position\" = 'QB'::text THEN 0.9 ELSE 1::numeric END AS recent_l1, log(sum(player_season_stats_with_metrics.total_touchdowns) + 1.0) * 1.25 * CASE WHEN player_season_stats_with_metrics.\"position\" = 'QB'::text THEN 0.85 ELSE 1::numeric END AS recent_l2, log(GREATEST(sum(player_season_stats_with_metrics.total_epa), 0::double precision) + 1.0::double precision) * 1.0::double precision AS recent_l3, log(sum(player_season_stats_with_metrics.touches) + 1.0) * 0.67 AS recent_l4 FROM player_season_stats_with_metrics WHERE player_season_stats_with_metrics.season = (( SELECT recent_szn.szn FROM recent_szn)) GROUP BY player_season_stats_with_metrics.player_id, player_season_stats_with_metrics.\"position\" ), composite_score AS ( SELECT p.gsis_id AS player_id, p.display_name, p.last_name, COALESCE(r.\"position\", c.\"position\") AS \"position\", CASE WHEN p.rookie_year > (( SELECT recent_szn.szn FROM recent_szn)) AND p.draftround = 1 THEN 15::double precision WHEN p.rookie_year > (( SELECT recent_szn.szn FROM recent_szn)) AND p.draftround = 2 THEN 10::double precision WHEN p.rookie_year > (( SELECT recent_szn.szn FROM recent_szn)) THEN 5::double precision ELSE (1.5::double precision * COALESCE((r.recent_l1 + r.recent_l2)::double precision + r.recent_l3 + r.recent_l4::double precision, 0::double precision) + 1.0::double precision * COALESCE((c.career_l1 + c.career_l2)::double precision + c.career_l3 + c.career_l4::double precision, 0::double precision)) * CASE WHEN p.rookie_year = (( SELECT recent_szn.szn FROM recent_szn)) THEN 2 ELSE 1 END::double precision END AS composite_score FROM players p LEFT JOIN recent_stats r ON p.gsis_id::text = r.player_id::text LEFT JOIN career_stats c ON p.gsis_id::text = c.player_id::text ), normalized_composite_score AS ( SELECT rs.player_id, rs.display_name, rs.last_name, rs.\"position\", rs.composite_score, CASE WHEN (max(rs.composite_score) OVER () - min(rs.composite_score) OVER ()) > 0::double precision THEN (rs.composite_score - min(rs.composite_score) OVER ()) / (max(rs.composite_score) OVER () - min(rs.composite_score) OVER ()) ELSE 0.5::double precision END AS normalized_composite_score FROM composite_score rs ) SELECT player_id, display_name, last_name, \"position\", composite_score, normalized_composite_score FROM normalized_composite_score",
+      "materialized": true
+    },
+    "public.player_season_stats": {
+      "name": "player_season_stats",
+      "schema": "public",
+      "columns": {
+        "player_id": {
+          "name": "player_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_name": {
+          "name": "player_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season": {
+          "name": "season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season_type": {
+          "name": "season_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team": {
+          "name": "team",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "games_played": {
+          "name": "games_played",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plays": {
+          "name": "plays",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_plays": {
+          "name": "qb_plays",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completions": {
+          "name": "completions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempts": {
+          "name": "attempts",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards": {
+          "name": "passing_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_tds": {
+          "name": "passing_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interceptions": {
+          "name": "interceptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sacks": {
+          "name": "sacks",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_yards": {
+          "name": "sack_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_air_yards": {
+          "name": "passing_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards_after_catch": {
+          "name": "passing_yards_after_catch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passes": {
+          "name": "passes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles": {
+          "name": "sack_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles_lost": {
+          "name": "sack_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries": {
+          "name": "carries",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_yards": {
+          "name": "rushing_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_tds": {
+          "name": "rushing_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles": {
+          "name": "rushing_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles_lost": {
+          "name": "rushing_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_downs": {
+          "name": "rushing_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "targets": {
+          "name": "targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receptions": {
+          "name": "receptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards": {
+          "name": "receiving_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_tds": {
+          "name": "receiving_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles": {
+          "name": "receiving_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles_lost": {
+          "name": "receiving_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_air_yards": {
+          "name": "receiving_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards_after_catch": {
+          "name": "receiving_yards_after_catch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_downs": {
+          "name": "receiving_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scrambles": {
+          "name": "scrambles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_yards": {
+          "name": "scramble_yards",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_downs": {
+          "name": "scramble_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_targets": {
+          "name": "qb_targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_air_yards": {
+          "name": "qb_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropbacks": {
+          "name": "dropbacks",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_cpoe": {
+          "name": "total_cpoe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe_count": {
+          "name": "cpoe_count",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_passes": {
+          "name": "explosive_passes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_runs": {
+          "name": "explosive_runs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_receptions": {
+          "name": "explosive_receptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scrambles": {
+          "name": "explosive_scrambles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "touches": {
+          "name": "touches",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opportunities": {
+          "name": "opportunities",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_downs": {
+          "name": "passing_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_passes": {
+          "name": "successful_passes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_rushes": {
+          "name": "successful_rushes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_receptions": {
+          "name": "successful_receptions",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_dropbacks": {
+          "name": "successful_dropbacks",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_scrambles": {
+          "name": "successful_scrambles",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_epa": {
+          "name": "total_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_epa": {
+          "name": "passing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_epa": {
+          "name": "rushing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_epa": {
+          "name": "receiving_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_epa": {
+          "name": "dropback_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_epa": {
+          "name": "scramble_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_season_targets": {
+          "name": "team_season_targets",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_season_air_yards": {
+          "name": "team_season_air_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "isExisting": false,
+      "definition": "SELECT player_id, max(player_name) AS player_name, season, season_type, (array_agg(team ORDER BY week DESC))[1] AS team, max(\"position\") AS \"position\", count(DISTINCT game_id) AS games_played, sum(plays) AS plays, sum(qb_plays) AS qb_plays, sum(completions) AS completions, sum(attempts) AS attempts, sum(passing_yards) AS passing_yards, sum(passing_tds) AS passing_tds, sum(interceptions) AS interceptions, sum(sacks) AS sacks, sum(sack_yards) AS sack_yards, sum(passing_air_yards) AS passing_air_yards, sum(passing_yards) - sum(qb_air_yards) AS passing_yards_after_catch, sum(passes) AS passes, sum(sack_fumbles) AS sack_fumbles, sum(sack_fumbles_lost) AS sack_fumbles_lost, sum(carries) AS carries, sum(rushing_yards) AS rushing_yards, sum(rushing_tds) AS rushing_tds, sum(rushing_fumbles) AS rushing_fumbles, sum(rushing_fumbles_lost) AS rushing_fumbles_lost, sum(rushing_first_downs) AS rushing_first_downs, sum(targets) AS targets, sum(receptions) AS receptions, sum(receiving_yards) AS receiving_yards, sum(receiving_tds) AS receiving_tds, sum(receiving_fumbles) AS receiving_fumbles, sum(receiving_fumbles_lost) AS receiving_fumbles_lost, sum(receiving_air_yards) AS receiving_air_yards, sum(receiving_yards_after_catch) AS receiving_yards_after_catch, sum(receiving_first_downs) AS receiving_first_downs, sum(scrambles) AS scrambles, sum(scramble_yards) AS scramble_yards, sum(scramble_first_downs) AS scramble_first_downs, sum(qb_targets) AS qb_targets, sum(qb_air_yards) AS qb_air_yards, sum(dropbacks) AS dropbacks, sum(total_cpoe) AS total_cpoe, sum(cpoe_count) AS cpoe_count, sum(explosive_passes) AS explosive_passes, sum(explosive_runs) AS explosive_runs, sum(explosive_receptions) AS explosive_receptions, sum(explosive_scrambles) AS explosive_scrambles, sum(touches) AS touches, sum(opportunities) AS opportunities, sum(passing_first_downs) AS passing_first_downs, sum(successful_passes) AS successful_passes, sum(successful_rushes) AS successful_rushes, sum(successful_receptions) AS successful_receptions, sum(successful_dropbacks) AS successful_dropbacks, sum(successful_scrambles) AS successful_scrambles, sum(total_epa) AS total_epa, sum(passing_epa) AS passing_epa, sum(rushing_epa) AS rushing_epa, sum(receiving_epa) AS receiving_epa, sum(dropback_epa) AS dropback_epa, sum(scramble_epa) AS scramble_epa, sum(team_game_targets) AS team_season_targets, sum(team_game_air_yards) AS team_season_air_yards FROM player_game_stats GROUP BY player_id, season, season_type",
+      "materialized": false
+    },
+    "public.player_season_stats_with_metrics": {
+      "name": "player_season_stats_with_metrics",
+      "schema": "public",
+      "columns": {
+        "player_id": {
+          "name": "player_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_name": {
+          "name": "player_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season": {
+          "name": "season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season_type": {
+          "name": "season_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team": {
+          "name": "team",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "games_played": {
+          "name": "games_played",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plays": {
+          "name": "plays",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_plays": {
+          "name": "qb_plays",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completions": {
+          "name": "completions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempts": {
+          "name": "attempts",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards": {
+          "name": "passing_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_tds": {
+          "name": "passing_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interceptions": {
+          "name": "interceptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sacks": {
+          "name": "sacks",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_yards": {
+          "name": "sack_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_air_yards": {
+          "name": "passing_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards_after_catch": {
+          "name": "passing_yards_after_catch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passes": {
+          "name": "passes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles": {
+          "name": "sack_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles_lost": {
+          "name": "sack_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries": {
+          "name": "carries",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_yards": {
+          "name": "rushing_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_tds": {
+          "name": "rushing_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles": {
+          "name": "rushing_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles_lost": {
+          "name": "rushing_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_downs": {
+          "name": "rushing_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "targets": {
+          "name": "targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receptions": {
+          "name": "receptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards": {
+          "name": "receiving_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_tds": {
+          "name": "receiving_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles": {
+          "name": "receiving_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles_lost": {
+          "name": "receiving_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_air_yards": {
+          "name": "receiving_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards_after_catch": {
+          "name": "receiving_yards_after_catch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_downs": {
+          "name": "receiving_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scrambles": {
+          "name": "scrambles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_yards": {
+          "name": "scramble_yards",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_downs": {
+          "name": "scramble_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_targets": {
+          "name": "qb_targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_air_yards": {
+          "name": "qb_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropbacks": {
+          "name": "dropbacks",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_cpoe": {
+          "name": "total_cpoe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe_count": {
+          "name": "cpoe_count",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_passes": {
+          "name": "explosive_passes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_runs": {
+          "name": "explosive_runs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_receptions": {
+          "name": "explosive_receptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scrambles": {
+          "name": "explosive_scrambles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "touches": {
+          "name": "touches",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opportunities": {
+          "name": "opportunities",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_downs": {
+          "name": "passing_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_passes": {
+          "name": "successful_passes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_rushes": {
+          "name": "successful_rushes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_receptions": {
+          "name": "successful_receptions",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_dropbacks": {
+          "name": "successful_dropbacks",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_scrambles": {
+          "name": "successful_scrambles",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_epa": {
+          "name": "total_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_epa": {
+          "name": "passing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_epa": {
+          "name": "rushing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_epa": {
+          "name": "receiving_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_epa": {
+          "name": "dropback_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_epa": {
+          "name": "scramble_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_season_targets": {
+          "name": "team_season_targets",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_season_air_yards": {
+          "name": "team_season_air_yards",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completions_per_game": {
+          "name": "completions_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempts_per_game": {
+          "name": "attempts_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards_per_game": {
+          "name": "passing_yards_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries_per_game": {
+          "name": "carries_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_yards_per_game": {
+          "name": "rushing_yards_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "targets_per_game": {
+          "name": "targets_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receptions_per_game": {
+          "name": "receptions_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards_per_game": {
+          "name": "receiving_yards_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "touches_per_game": {
+          "name": "touches_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opportunities_per_game": {
+          "name": "opportunities_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completion_percentage": {
+          "name": "completion_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_attempt": {
+          "name": "yards_per_attempt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_completion": {
+          "name": "yards_per_completion",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "td_percentage": {
+          "name": "td_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "int_percentage": {
+          "name": "int_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_rate": {
+          "name": "sack_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_rate": {
+          "name": "scramble_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe": {
+          "name": "cpoe",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_adot": {
+          "name": "qb_adot",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiver_adot": {
+          "name": "receiver_adot",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_carry": {
+          "name": "yards_per_carry",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rush_td_percentage": {
+          "name": "rush_td_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "catch_rate": {
+          "name": "catch_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_reception": {
+          "name": "yards_per_reception",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_target": {
+          "name": "yards_per_target",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_td_percentage": {
+          "name": "receiving_td_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pacr": {
+          "name": "pacr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "racr": {
+          "name": "racr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_share": {
+          "name": "target_share",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "air_yards_share": {
+          "name": "air_yards_share",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wopr": {
+          "name": "wopr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "success_rate": {
+          "name": "success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_success_rate": {
+          "name": "passing_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_success_rate": {
+          "name": "dropback_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_success_rate": {
+          "name": "scramble_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_success_rate": {
+          "name": "rushing_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_success_rate": {
+          "name": "target_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_dropback": {
+          "name": "epa_per_dropback",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_scramble": {
+          "name": "epa_per_scramble",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_carry": {
+          "name": "epa_per_carry",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_target": {
+          "name": "epa_per_target",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_reception": {
+          "name": "epa_per_reception",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_play": {
+          "name": "epa_per_play",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_qb_play": {
+          "name": "epa_per_qb_play",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_pass": {
+          "name": "epa_per_pass",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_yards": {
+          "name": "total_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_touchdowns": {
+          "name": "total_touchdowns",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_game": {
+          "name": "yards_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passer_rating": {
+          "name": "passer_rating",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_down_rate": {
+          "name": "passing_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_down_rate": {
+          "name": "rushing_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_down_rate": {
+          "name": "receiving_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_down_rate": {
+          "name": "scramble_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_pass_rate": {
+          "name": "explosive_pass_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_run_rate": {
+          "name": "explosive_run_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_target_rate": {
+          "name": "explosive_target_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_catch_rate": {
+          "name": "explosive_catch_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scramble_rate": {
+          "name": "explosive_scramble_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "isExisting": false,
+      "definition": "SELECT player_id, player_name, season, season_type, team, \"position\", games_played, plays, qb_plays, completions, attempts, passing_yards, passing_tds, interceptions, sacks, sack_yards, passing_air_yards, passing_yards_after_catch, passes, sack_fumbles, sack_fumbles_lost, carries, rushing_yards, rushing_tds, rushing_fumbles, rushing_fumbles_lost, rushing_first_downs, targets, receptions, receiving_yards, receiving_tds, receiving_fumbles, receiving_fumbles_lost, receiving_air_yards, receiving_yards_after_catch, receiving_first_downs, scrambles, scramble_yards, scramble_first_downs, qb_targets, qb_air_yards, dropbacks, total_cpoe, cpoe_count, explosive_passes, explosive_runs, explosive_receptions, explosive_scrambles, touches, opportunities, passing_first_downs, successful_passes, successful_rushes, successful_receptions, successful_dropbacks, successful_scrambles, total_epa, passing_epa, rushing_epa, receiving_epa, dropback_epa, scramble_epa, team_season_targets, team_season_air_yards, round(completions / games_played::numeric, 1) AS completions_per_game, round(attempts / games_played::numeric, 1) AS attempts_per_game, round(passing_yards / games_played::numeric, 1) AS passing_yards_per_game, round(carries / games_played::numeric, 1) AS carries_per_game, round(rushing_yards / games_played::numeric, 1) AS rushing_yards_per_game, round(targets / games_played::numeric, 1) AS targets_per_game, round(receptions / games_played::numeric, 1) AS receptions_per_game, round(receiving_yards / games_played::numeric, 1) AS receiving_yards_per_game, round(touches / games_played::numeric, 1) AS touches_per_game, round(opportunities / games_played::numeric, 1) AS opportunities_per_game, CASE WHEN attempts > 0::numeric THEN round(completions / attempts * 100::numeric, 1) ELSE NULL::numeric END AS completion_percentage, CASE WHEN attempts > 0::numeric THEN round(passing_yards / attempts, 1) ELSE NULL::numeric END AS yards_per_attempt, CASE WHEN completions > 0::numeric THEN round(passing_yards / completions, 1) ELSE NULL::numeric END AS yards_per_completion, CASE WHEN attempts > 0::numeric THEN round(passing_tds / attempts * 100::numeric, 1) ELSE NULL::numeric END AS td_percentage, CASE WHEN attempts > 0::numeric THEN round(interceptions / attempts * 100::numeric, 1) ELSE NULL::numeric END AS int_percentage, CASE WHEN dropbacks > 0::numeric THEN round(sacks / dropbacks * 100::numeric, 1) ELSE NULL::numeric END AS sack_rate, CASE WHEN dropbacks > 0::numeric THEN round(scrambles / dropbacks * 100::numeric, 1) ELSE NULL::numeric END AS scramble_rate, CASE WHEN cpoe_count > 0::numeric THEN round(total_cpoe::numeric / cpoe_count, 1) ELSE NULL::numeric END AS cpoe, CASE WHEN attempts > 0::numeric THEN round(passing_air_yards / attempts, 1) ELSE NULL::numeric END AS qb_adot, CASE WHEN targets > 0::numeric THEN round(receiving_air_yards / targets, 1) ELSE NULL::numeric END AS receiver_adot, CASE WHEN carries > 0::numeric THEN round(rushing_yards / carries, 1) ELSE NULL::numeric END AS yards_per_carry, CASE WHEN carries > 0::numeric THEN round(rushing_tds / carries * 100::numeric, 1) ELSE NULL::numeric END AS rush_td_percentage, CASE WHEN targets > 0::numeric THEN round(receptions / targets * 100::numeric, 1) ELSE NULL::numeric END AS catch_rate, CASE WHEN receptions > 0::numeric THEN round(receiving_yards / receptions, 1) ELSE NULL::numeric END AS yards_per_reception, CASE WHEN targets > 0::numeric THEN round(receiving_yards / targets, 1) ELSE NULL::numeric END AS yards_per_target, CASE WHEN targets > 0::numeric THEN round(receiving_tds / targets * 100::numeric, 1) ELSE NULL::numeric END AS receiving_td_percentage, CASE WHEN passing_air_yards > 0::numeric THEN round(passing_yards / passing_air_yards, 3) ELSE NULL::numeric END AS pacr, CASE WHEN receiving_air_yards > 0::numeric THEN round(receiving_yards / receiving_air_yards, 3) ELSE NULL::numeric END AS racr, CASE WHEN team_season_targets > 0 THEN round(targets / team_season_targets::numeric, 3) ELSE NULL::numeric END AS target_share, CASE WHEN team_season_air_yards > 0 THEN round(receiving_air_yards / team_season_air_yards::numeric, 3) ELSE NULL::numeric END AS air_yards_share, CASE WHEN team_season_targets > 0 AND team_season_air_yards > 0 THEN round(1.5 * (targets / team_season_targets::numeric) + 0.7 * (receiving_air_yards / team_season_air_yards::numeric), 3) ELSE NULL::numeric END AS wopr, CASE WHEN qb_plays > 0::numeric THEN round((successful_passes::numeric + successful_rushes::numeric) / qb_plays * 100::numeric, 1) ELSE NULL::numeric END AS success_rate, CASE WHEN passes > 0::numeric THEN round(successful_passes::numeric / passes * 100::numeric, 1) ELSE NULL::numeric END AS passing_success_rate, CASE WHEN dropbacks > 0::numeric THEN round(successful_dropbacks::numeric / dropbacks * 100::numeric, 1) ELSE NULL::numeric END AS dropback_success_rate, CASE WHEN scrambles > 0::numeric THEN round(successful_scrambles::numeric / scrambles * 100::numeric, 1) ELSE NULL::numeric END AS scramble_success_rate, CASE WHEN carries > 0::numeric THEN round(successful_rushes::numeric / carries * 100::numeric, 1) ELSE NULL::numeric END AS rushing_success_rate, CASE WHEN targets > 0::numeric THEN round(successful_receptions::numeric / targets * 100::numeric, 1) ELSE NULL::numeric END AS target_success_rate, CASE WHEN dropbacks > 0::numeric THEN round(dropback_epa::numeric / dropbacks, 3) ELSE NULL::numeric END AS epa_per_dropback, CASE WHEN scrambles > 0::numeric THEN round(scramble_epa::numeric / scrambles, 3) ELSE NULL::numeric END AS epa_per_scramble, CASE WHEN carries > 0::numeric THEN round(rushing_epa::numeric / carries, 3) ELSE NULL::numeric END AS epa_per_carry, CASE WHEN targets > 0::numeric THEN round(receiving_epa::numeric / targets, 3) ELSE NULL::numeric END AS epa_per_target, CASE WHEN receptions > 0::numeric THEN round(receiving_epa::numeric / receptions, 3) ELSE NULL::numeric END AS epa_per_reception, CASE WHEN plays > 0 THEN round(total_epa::numeric / plays::numeric, 3) ELSE NULL::numeric END AS epa_per_play, CASE WHEN qb_plays > 0::numeric THEN round((passing_epa + rushing_epa)::numeric / qb_plays, 3) ELSE NULL::numeric END AS epa_per_qb_play, CASE WHEN passes > 0::numeric THEN round(passing_epa::numeric / passes, 3) ELSE NULL::numeric END AS epa_per_pass, passing_yards + rushing_yards + receiving_yards AS total_yards, passing_tds + rushing_tds + receiving_tds AS total_touchdowns, round((passing_yards + rushing_yards + receiving_yards) / games_played::numeric, 1) AS yards_per_game, CASE WHEN attempts >= 1::numeric THEN round(((completions / attempts * 100::numeric - 30::numeric) / 20::numeric + (passing_yards / attempts - 3::numeric) / 4::numeric + passing_tds / attempts * 20::numeric + 2.375 - interceptions / attempts * 25::numeric) / 6::numeric * 100::numeric, 1) ELSE NULL::numeric END AS passer_rating, CASE WHEN attempts > 0::numeric THEN round(passing_first_downs / attempts * 100::numeric, 1) ELSE NULL::numeric END AS passing_first_down_rate, CASE WHEN carries > 0::numeric THEN round(rushing_first_downs / carries * 100::numeric, 1) ELSE NULL::numeric END AS rushing_first_down_rate, CASE WHEN targets > 0::numeric THEN round(receiving_first_downs / targets * 100::numeric, 1) ELSE NULL::numeric END AS receiving_first_down_rate, CASE WHEN scrambles > 0::numeric THEN round(scramble_first_downs / scrambles * 100::numeric, 1) ELSE NULL::numeric END AS scramble_first_down_rate, CASE WHEN passes > 0::numeric THEN round(explosive_passes / passes * 100::numeric, 1) ELSE NULL::numeric END AS explosive_pass_rate, CASE WHEN carries > 0::numeric THEN round(explosive_runs / carries * 100::numeric, 1) ELSE NULL::numeric END AS explosive_run_rate, CASE WHEN targets > 0::numeric THEN round(explosive_receptions / targets * 100::numeric, 1) ELSE NULL::numeric END AS explosive_target_rate, CASE WHEN receptions > 0::numeric THEN round(explosive_receptions / receptions * 100::numeric, 1) ELSE NULL::numeric END AS explosive_catch_rate, CASE WHEN scrambles > 0::numeric THEN round(explosive_scrambles / scrambles * 100::numeric, 1) ELSE NULL::numeric END AS explosive_scramble_rate FROM player_season_stats ps",
+      "materialized": false
+    },
+    "public.player_career_stats": {
+      "name": "player_career_stats",
+      "schema": "public",
+      "columns": {
+        "player_id": {
+          "name": "player_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_name": {
+          "name": "player_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season_type": {
+          "name": "season_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team": {
+          "name": "team",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "first_season": {
+          "name": "first_season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_season": {
+          "name": "last_season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "seasons_played": {
+          "name": "seasons_played",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "games_played": {
+          "name": "games_played",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plays": {
+          "name": "plays",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_plays": {
+          "name": "qb_plays",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completions": {
+          "name": "completions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempts": {
+          "name": "attempts",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards": {
+          "name": "passing_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_tds": {
+          "name": "passing_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interceptions": {
+          "name": "interceptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sacks": {
+          "name": "sacks",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_yards": {
+          "name": "sack_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_air_yards": {
+          "name": "passing_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards_after_catch": {
+          "name": "passing_yards_after_catch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passes": {
+          "name": "passes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries": {
+          "name": "carries",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_yards": {
+          "name": "rushing_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_tds": {
+          "name": "rushing_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles": {
+          "name": "rushing_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles_lost": {
+          "name": "rushing_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_downs": {
+          "name": "rushing_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles": {
+          "name": "sack_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles_lost": {
+          "name": "sack_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "targets": {
+          "name": "targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receptions": {
+          "name": "receptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards": {
+          "name": "receiving_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_tds": {
+          "name": "receiving_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles": {
+          "name": "receiving_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles_lost": {
+          "name": "receiving_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_air_yards": {
+          "name": "receiving_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards_after_catch": {
+          "name": "receiving_yards_after_catch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_downs": {
+          "name": "receiving_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropbacks": {
+          "name": "dropbacks",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_cpoe": {
+          "name": "total_cpoe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe_count": {
+          "name": "cpoe_count",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scrambles": {
+          "name": "scrambles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_yards": {
+          "name": "scramble_yards",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_downs": {
+          "name": "scramble_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_downs": {
+          "name": "passing_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_passes": {
+          "name": "explosive_passes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_runs": {
+          "name": "explosive_runs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_receptions": {
+          "name": "explosive_receptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scrambles": {
+          "name": "explosive_scrambles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_passes": {
+          "name": "successful_passes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_dropbacks": {
+          "name": "successful_dropbacks",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_scrambles": {
+          "name": "successful_scrambles",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_rushes": {
+          "name": "successful_rushes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_receptions": {
+          "name": "successful_receptions",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_targets": {
+          "name": "qb_targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_air_yards": {
+          "name": "qb_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_epa": {
+          "name": "total_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_epa": {
+          "name": "passing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_epa": {
+          "name": "rushing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_epa": {
+          "name": "receiving_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_epa": {
+          "name": "dropback_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_epa": {
+          "name": "scramble_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "touches": {
+          "name": "touches",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opportunities": {
+          "name": "opportunities",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_career_targets": {
+          "name": "team_career_targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_career_air_yards": {
+          "name": "team_career_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "isExisting": false,
+      "definition": "SELECT player_id, max(player_name) AS player_name, season_type, (array_agg(team ORDER BY season DESC))[1] AS team, min(season) AS first_season, max(season) AS last_season, count(DISTINCT season) AS seasons_played, max(\"position\") AS \"position\", sum(games_played) AS games_played, sum(plays) AS plays, sum(qb_plays) AS qb_plays, sum(completions) AS completions, sum(attempts) AS attempts, sum(passing_yards) AS passing_yards, sum(passing_tds) AS passing_tds, sum(interceptions) AS interceptions, sum(sacks) AS sacks, sum(sack_yards) AS sack_yards, sum(passing_air_yards) AS passing_air_yards, sum(passing_yards) - sum(passing_air_yards) AS passing_yards_after_catch, sum(passes) AS passes, sum(carries) AS carries, sum(rushing_yards) AS rushing_yards, sum(rushing_tds) AS rushing_tds, sum(rushing_fumbles) AS rushing_fumbles, sum(rushing_fumbles_lost) AS rushing_fumbles_lost, sum(rushing_first_downs) AS rushing_first_downs, sum(sack_fumbles) AS sack_fumbles, sum(sack_fumbles_lost) AS sack_fumbles_lost, sum(targets) AS targets, sum(receptions) AS receptions, sum(receiving_yards) AS receiving_yards, sum(receiving_tds) AS receiving_tds, sum(receiving_fumbles) AS receiving_fumbles, sum(receiving_fumbles_lost) AS receiving_fumbles_lost, sum(receiving_air_yards) AS receiving_air_yards, sum(receiving_yards_after_catch) AS receiving_yards_after_catch, sum(receiving_first_downs) AS receiving_first_downs, sum(dropbacks) AS dropbacks, sum(total_cpoe) AS total_cpoe, sum(cpoe_count) AS cpoe_count, sum(scrambles) AS scrambles, sum(scramble_yards) AS scramble_yards, sum(scramble_first_downs) AS scramble_first_downs, sum(passing_first_downs) AS passing_first_downs, sum(explosive_passes) AS explosive_passes, sum(explosive_runs) AS explosive_runs, sum(explosive_receptions) AS explosive_receptions, sum(explosive_scrambles) AS explosive_scrambles, sum(successful_passes) AS successful_passes, sum(successful_dropbacks) AS successful_dropbacks, sum(successful_scrambles) AS successful_scrambles, sum(successful_rushes) AS successful_rushes, sum(successful_receptions) AS successful_receptions, sum(qb_targets) AS qb_targets, sum(qb_air_yards) AS qb_air_yards, sum(total_epa) AS total_epa, sum(passing_epa) AS passing_epa, sum(rushing_epa) AS rushing_epa, sum(receiving_epa) AS receiving_epa, sum(dropback_epa) AS dropback_epa, sum(scramble_epa) AS scramble_epa, sum(touches) AS touches, sum(opportunities) AS opportunities, sum(team_season_targets) AS team_career_targets, sum(team_season_air_yards) AS team_career_air_yards FROM player_season_stats GROUP BY player_id, season_type",
+      "materialized": false
+    },
+    "public.player_career_stats_with_metrics": {
+      "name": "player_career_stats_with_metrics",
+      "schema": "public",
+      "columns": {
+        "player_id": {
+          "name": "player_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "player_name": {
+          "name": "player_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "season_type": {
+          "name": "season_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team": {
+          "name": "team",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "first_season": {
+          "name": "first_season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_season": {
+          "name": "last_season",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "seasons_played": {
+          "name": "seasons_played",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "games_played": {
+          "name": "games_played",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plays": {
+          "name": "plays",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_plays": {
+          "name": "qb_plays",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completions": {
+          "name": "completions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempts": {
+          "name": "attempts",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards": {
+          "name": "passing_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_tds": {
+          "name": "passing_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interceptions": {
+          "name": "interceptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sacks": {
+          "name": "sacks",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_yards": {
+          "name": "sack_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_air_yards": {
+          "name": "passing_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards_after_catch": {
+          "name": "passing_yards_after_catch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passes": {
+          "name": "passes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries": {
+          "name": "carries",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_yards": {
+          "name": "rushing_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_tds": {
+          "name": "rushing_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles": {
+          "name": "rushing_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_fumbles_lost": {
+          "name": "rushing_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_downs": {
+          "name": "rushing_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles": {
+          "name": "sack_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_fumbles_lost": {
+          "name": "sack_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "targets": {
+          "name": "targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receptions": {
+          "name": "receptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards": {
+          "name": "receiving_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_tds": {
+          "name": "receiving_tds",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles": {
+          "name": "receiving_fumbles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_fumbles_lost": {
+          "name": "receiving_fumbles_lost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_air_yards": {
+          "name": "receiving_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards_after_catch": {
+          "name": "receiving_yards_after_catch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_downs": {
+          "name": "receiving_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropbacks": {
+          "name": "dropbacks",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_cpoe": {
+          "name": "total_cpoe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe_count": {
+          "name": "cpoe_count",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scrambles": {
+          "name": "scrambles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_yards": {
+          "name": "scramble_yards",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_downs": {
+          "name": "scramble_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_downs": {
+          "name": "passing_first_downs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_passes": {
+          "name": "explosive_passes",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_runs": {
+          "name": "explosive_runs",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_receptions": {
+          "name": "explosive_receptions",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scrambles": {
+          "name": "explosive_scrambles",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_passes": {
+          "name": "successful_passes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_dropbacks": {
+          "name": "successful_dropbacks",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_scrambles": {
+          "name": "successful_scrambles",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_rushes": {
+          "name": "successful_rushes",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "successful_receptions": {
+          "name": "successful_receptions",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_targets": {
+          "name": "qb_targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_air_yards": {
+          "name": "qb_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_epa": {
+          "name": "total_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_epa": {
+          "name": "passing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_epa": {
+          "name": "rushing_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_epa": {
+          "name": "receiving_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_epa": {
+          "name": "dropback_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_epa": {
+          "name": "scramble_epa",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "touches": {
+          "name": "touches",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opportunities": {
+          "name": "opportunities",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_career_targets": {
+          "name": "team_career_targets",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "team_career_air_yards": {
+          "name": "team_career_air_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completions_per_game": {
+          "name": "completions_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attempts_per_game": {
+          "name": "attempts_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_yards_per_game": {
+          "name": "passing_yards_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries_per_game": {
+          "name": "carries_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_yards_per_game": {
+          "name": "rushing_yards_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "targets_per_game": {
+          "name": "targets_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receptions_per_game": {
+          "name": "receptions_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_yards_per_game": {
+          "name": "receiving_yards_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completion_percentage": {
+          "name": "completion_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_attempt": {
+          "name": "yards_per_attempt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "td_percentage": {
+          "name": "td_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "int_percentage": {
+          "name": "int_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sack_rate": {
+          "name": "sack_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_rate": {
+          "name": "scramble_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cpoe": {
+          "name": "cpoe",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qb_adot": {
+          "name": "qb_adot",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiver_adot": {
+          "name": "receiver_adot",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_carry": {
+          "name": "yards_per_carry",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rush_td_percentage": {
+          "name": "rush_td_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "catch_rate": {
+          "name": "catch_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_reception": {
+          "name": "yards_per_reception",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_target": {
+          "name": "yards_per_target",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_td_percentage": {
+          "name": "receiving_td_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_success_rate": {
+          "name": "target_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pacr": {
+          "name": "pacr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "racr": {
+          "name": "racr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_share": {
+          "name": "target_share",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "air_yards_share": {
+          "name": "air_yards_share",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wopr": {
+          "name": "wopr",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "success_rate": {
+          "name": "success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_success_rate": {
+          "name": "passing_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dropback_success_rate": {
+          "name": "dropback_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_success_rate": {
+          "name": "scramble_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_success_rate": {
+          "name": "rushing_success_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_pass": {
+          "name": "epa_per_pass",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_dropback": {
+          "name": "epa_per_dropback",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_scramble": {
+          "name": "epa_per_scramble",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_carry": {
+          "name": "epa_per_carry",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_target": {
+          "name": "epa_per_target",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_reception": {
+          "name": "epa_per_reception",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_play": {
+          "name": "epa_per_play",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "epa_per_qb_play": {
+          "name": "epa_per_qb_play",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_pass_rate": {
+          "name": "explosive_pass_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_run_rate": {
+          "name": "explosive_run_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_target_rate": {
+          "name": "explosive_target_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_catch_rate": {
+          "name": "explosive_catch_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explosive_scramble_rate": {
+          "name": "explosive_scramble_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_yards": {
+          "name": "total_yards",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total_touchdowns": {
+          "name": "total_touchdowns",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yards_per_game": {
+          "name": "yards_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passer_rating": {
+          "name": "passer_rating",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passing_first_down_rate": {
+          "name": "passing_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rushing_first_down_rate": {
+          "name": "rushing_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "receiving_first_down_rate": {
+          "name": "receiving_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scramble_first_down_rate": {
+          "name": "scramble_first_down_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "touches_per_game": {
+          "name": "touches_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opportunities_per_game": {
+          "name": "opportunities_per_game",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "isExisting": false,
+      "definition": "SELECT player_id, player_name, season_type, team, first_season, last_season, seasons_played, \"position\", games_played, plays, qb_plays, completions, attempts, passing_yards, passing_tds, interceptions, sacks, sack_yards, passing_air_yards, passing_yards_after_catch, passes, carries, rushing_yards, rushing_tds, rushing_fumbles, rushing_fumbles_lost, rushing_first_downs, sack_fumbles, sack_fumbles_lost, targets, receptions, receiving_yards, receiving_tds, receiving_fumbles, receiving_fumbles_lost, receiving_air_yards, receiving_yards_after_catch, receiving_first_downs, dropbacks, total_cpoe, cpoe_count, scrambles, scramble_yards, scramble_first_downs, passing_first_downs, explosive_passes, explosive_runs, explosive_receptions, explosive_scrambles, successful_passes, successful_dropbacks, successful_scrambles, successful_rushes, successful_receptions, qb_targets, qb_air_yards, total_epa, passing_epa, rushing_epa, receiving_epa, dropback_epa, scramble_epa, touches, opportunities, team_career_targets, team_career_air_yards, round(completions / NULLIF(games_played, 0::numeric), 1) AS completions_per_game, round(attempts / NULLIF(games_played, 0::numeric), 1) AS attempts_per_game, round(passing_yards / NULLIF(games_played, 0::numeric), 1) AS passing_yards_per_game, round(carries / NULLIF(games_played, 0::numeric), 1) AS carries_per_game, round(rushing_yards / NULLIF(games_played, 0::numeric), 1) AS rushing_yards_per_game, round(targets / NULLIF(games_played, 0::numeric), 1) AS targets_per_game, round(receptions / NULLIF(games_played, 0::numeric), 1) AS receptions_per_game, round(receiving_yards / NULLIF(games_played, 0::numeric), 1) AS receiving_yards_per_game, CASE WHEN attempts > 0::numeric THEN round(completions / attempts * 100::numeric, 1) ELSE NULL::numeric END AS completion_percentage, CASE WHEN attempts > 0::numeric THEN round(passing_yards / attempts, 1) ELSE NULL::numeric END AS yards_per_attempt, CASE WHEN attempts > 0::numeric THEN round(passing_tds / attempts * 100::numeric, 1) ELSE NULL::numeric END AS td_percentage, CASE WHEN attempts > 0::numeric THEN round(interceptions / attempts * 100::numeric, 1) ELSE NULL::numeric END AS int_percentage, CASE WHEN (attempts + sacks) > 0::numeric THEN round(sacks / (attempts + sacks) * 100::numeric, 1) ELSE NULL::numeric END AS sack_rate, CASE WHEN dropbacks > 0::numeric THEN round(scrambles / dropbacks * 100::numeric, 1) ELSE NULL::numeric END AS scramble_rate, CASE WHEN cpoe_count > 0::numeric THEN round(total_cpoe::numeric / cpoe_count, 1) ELSE NULL::numeric END AS cpoe, CASE WHEN attempts > 0::numeric THEN round(passing_air_yards / attempts, 1) ELSE NULL::numeric END AS qb_adot, CASE WHEN targets > 0::numeric THEN round(receiving_air_yards / targets, 1) ELSE NULL::numeric END AS receiver_adot, CASE WHEN carries > 0::numeric THEN round(rushing_yards / carries, 1) ELSE NULL::numeric END AS yards_per_carry, CASE WHEN carries > 0::numeric THEN round(rushing_tds / carries * 100::numeric, 1) ELSE NULL::numeric END AS rush_td_percentage, CASE WHEN targets > 0::numeric THEN round(receptions / targets * 100::numeric, 1) ELSE NULL::numeric END AS catch_rate, CASE WHEN receptions > 0::numeric THEN round(receiving_yards / receptions, 1) ELSE NULL::numeric END AS yards_per_reception, CASE WHEN targets > 0::numeric THEN round(receiving_yards / targets, 1) ELSE NULL::numeric END AS yards_per_target, CASE WHEN targets > 0::numeric THEN round(receiving_tds / targets * 100::numeric, 1) ELSE NULL::numeric END AS receiving_td_percentage, CASE WHEN targets > 0::numeric THEN round(successful_receptions::numeric / targets * 100::numeric, 1) ELSE NULL::numeric END AS target_success_rate, CASE WHEN passing_air_yards > 0::numeric THEN round(passing_yards / passing_air_yards, 3) ELSE NULL::numeric END AS pacr, CASE WHEN receiving_air_yards > 0::numeric THEN round(receiving_yards / receiving_air_yards, 3) ELSE NULL::numeric END AS racr, CASE WHEN team_career_targets > 0::numeric THEN round(targets / team_career_targets, 3) ELSE NULL::numeric END AS target_share, CASE WHEN team_career_air_yards > 0::numeric THEN round(receiving_air_yards / team_career_air_yards, 3) ELSE NULL::numeric END AS air_yards_share, CASE WHEN team_career_targets > 0::numeric AND team_career_air_yards > 0::numeric THEN round(1.5 * (targets / team_career_targets) + 0.7 * (receiving_air_yards / team_career_air_yards), 3) ELSE NULL::numeric END AS wopr, CASE WHEN qb_plays > 0::numeric THEN round((successful_passes::numeric + successful_rushes::numeric) / qb_plays * 100::numeric, 1) ELSE NULL::numeric END AS success_rate, CASE WHEN passes > 0::numeric THEN round(successful_passes::numeric / passes * 100::numeric, 1) ELSE NULL::numeric END AS passing_success_rate, CASE WHEN dropbacks > 0::numeric THEN round(successful_dropbacks::numeric / dropbacks * 100::numeric, 1) ELSE NULL::numeric END AS dropback_success_rate, CASE WHEN scrambles > 0::numeric THEN round(successful_scrambles::numeric / scrambles * 100::numeric, 1) ELSE NULL::numeric END AS scramble_success_rate, CASE WHEN carries > 0::numeric THEN round(successful_rushes::numeric / carries * 100::numeric, 1) ELSE NULL::numeric END AS rushing_success_rate, CASE WHEN passes > 0::numeric THEN round(passing_epa::numeric / passes, 2) ELSE NULL::numeric END AS epa_per_pass, CASE WHEN dropbacks > 0::numeric THEN round(dropback_epa::numeric / dropbacks, 2) ELSE NULL::numeric END AS epa_per_dropback, CASE WHEN scrambles > 0::numeric THEN round(scramble_epa::numeric / scrambles, 2) ELSE NULL::numeric END AS epa_per_scramble, CASE WHEN carries > 0::numeric THEN round(rushing_epa::numeric / carries, 2) ELSE NULL::numeric END AS epa_per_carry, CASE WHEN targets > 0::numeric THEN round(receiving_epa::numeric / targets, 2) ELSE NULL::numeric END AS epa_per_target, CASE WHEN receptions > 0::numeric THEN round(receiving_epa::numeric / receptions, 2) ELSE NULL::numeric END AS epa_per_reception, CASE WHEN plays > 0::numeric THEN round(total_epa::numeric / plays, 2) ELSE NULL::numeric END AS epa_per_play, CASE WHEN qb_plays > 0::numeric THEN round((passing_epa + rushing_epa)::numeric / qb_plays, 2) ELSE NULL::numeric END AS epa_per_qb_play, CASE WHEN passes > 0::numeric THEN round(explosive_passes / passes * 100::numeric, 1) ELSE NULL::numeric END AS explosive_pass_rate, CASE WHEN carries > 0::numeric THEN round(explosive_runs / carries * 100::numeric, 1) ELSE NULL::numeric END AS explosive_run_rate, CASE WHEN targets > 0::numeric THEN round(explosive_receptions / targets * 100::numeric, 1) ELSE NULL::numeric END AS explosive_target_rate, CASE WHEN receptions > 0::numeric THEN round(explosive_receptions / receptions * 100::numeric, 1) ELSE NULL::numeric END AS explosive_catch_rate, CASE WHEN scrambles > 0::numeric THEN round(explosive_scrambles / scrambles * 100::numeric, 1) ELSE NULL::numeric END AS explosive_scramble_rate, passing_yards + rushing_yards + receiving_yards AS total_yards, passing_tds + rushing_tds + receiving_tds AS total_touchdowns, round((passing_yards + rushing_yards + receiving_yards) / games_played, 1) AS yards_per_game, CASE WHEN attempts >= 1::numeric THEN round(((completions / attempts * 100::numeric - 30::numeric) / 20::numeric + (passing_yards / attempts - 3::numeric) / 4::numeric + passing_tds / attempts * 20::numeric + 2.375 - interceptions / attempts * 25::numeric) / 6::numeric * 100::numeric, 1) ELSE NULL::numeric END AS passer_rating, CASE WHEN attempts > 0::numeric THEN round(passing_first_downs / attempts * 100::numeric, 1) ELSE NULL::numeric END AS passing_first_down_rate, CASE WHEN carries > 0::numeric THEN round(rushing_first_downs / carries * 100::numeric, 1) ELSE NULL::numeric END AS rushing_first_down_rate, CASE WHEN targets > 0::numeric THEN round(receiving_first_downs / targets * 100::numeric, 1) ELSE NULL::numeric END AS receiving_first_down_rate, CASE WHEN scrambles > 0::numeric THEN round(scramble_first_downs / scrambles * 100::numeric, 1) ELSE NULL::numeric END AS scramble_first_down_rate, round(touches / games_played, 1) AS touches_per_game, round(opportunities / games_played, 1) AS opportunities_per_game FROM player_career_stats pc",
+      "materialized": false
+    }
+  },
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {}
+  }
+}
